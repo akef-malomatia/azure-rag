@@ -14,7 +14,7 @@ openai.api_key = os.getenv("OPENAI_API_KEY")
 openai.api_type = "azure"
 openai.api_version = "2023-05-15" 
 
-embeddings = OpenAIEmbeddings(deployment="demo-embedding", chunk_size=1)
+embeddings = OpenAIEmbeddings(deployment="text-embedding-ada-002", chunk_size=1)
 
 # Connect to Azure Cognitive Search
 acs = AzureSearch(azure_search_endpoint=os.getenv('SEARCH_SERVICE_NAME'),
@@ -59,7 +59,7 @@ def search(query):
 def assistant(query, context):
     messages=[
         # Set the system characteristics for this chat bot
-        {"role": "system", "content": "Asisstant is a chatbot that helps you find the best wine for your taste."},
+        {"role": "system", "content": "Asisstant is a chatbot that helps you the law you want."},
 
         # Set the query so that the chatbot can respond to it
         {"role": "user", "content": query},
@@ -70,7 +70,7 @@ def assistant(query, context):
     ]
 
     response = openai.ChatCompletion.create(
-        engine="demo-alfredo",
+        engine="gpt-4o",
         messages=messages,
     )
     return response['choices'][0]['message']['content']
